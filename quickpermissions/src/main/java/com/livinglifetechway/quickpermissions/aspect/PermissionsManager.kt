@@ -132,8 +132,14 @@ class PermissionsManager {
                 val permissionRequest = QuickPermissionsRequest(permissionCheckerFragment, permissions)
                 permissionRequest.handleRationale = annotation.handleRationale
                 permissionRequest.handlePermanentlyDenied = annotation.handlePermanentlyDenied
-                permissionRequest.rationaleMessage = if (annotation.rationaleMessage.isBlank()) "default rationale" else annotation.rationaleMessage
-                permissionRequest.permanentlyDeniedMessage = if (annotation.permanentlyDeniedMessage.isBlank()) "default perm denied" else annotation.permanentlyDeniedMessage
+                permissionRequest.rationaleMessage = if (annotation.rationaleMessage.isBlank())
+                    "These permissions are required to perform this feature. Please allow us to use this feature. "
+                else
+                    annotation.rationaleMessage
+                permissionRequest.permanentlyDeniedMessage = if (annotation.permanentlyDeniedMessage.isBlank())
+                    "Some permissions are permanently denied which are required to perform this operation. Please open app settings to grant these permissions."
+                else
+                    annotation.permanentlyDeniedMessage
                 permissionRequest.rationaleMethod = getMethodWithAnnotation<OnShowRationale>(joinPoint.target)
                 permissionRequest.permanentDeniedMethod = getMethodWithAnnotation<OnPermissionsPermanentlyDenied>(joinPoint.target)
                 permissionRequest.permanentDeniedMethod = getMethodWithAnnotation<OnPermissionsPermanentlyDenied>(joinPoint.target)
