@@ -6,7 +6,7 @@ package com.livinglifetechway.quickpermissions.annotations
  */
 @Retention(AnnotationRetention.RUNTIME)
 @Target(AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.PROPERTY_SETTER)
-annotation class RequiresPermissions(
+annotation class WithPermissions(
         val permissions: Array<String>,
         val rationaleMessage: String = "",
         val permanentlyDeniedMessage: String = "",

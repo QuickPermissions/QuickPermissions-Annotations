@@ -8,7 +8,7 @@ import com.livinglifetechway.k4kotlin.transact
 import com.livinglifetechway.quickpermissions.annotations.OnPermissionsDenied
 import com.livinglifetechway.quickpermissions.annotations.OnPermissionsPermanentlyDenied
 import com.livinglifetechway.quickpermissions.annotations.OnShowRationale
-import com.livinglifetechway.quickpermissions.annotations.RequiresPermissions
+import com.livinglifetechway.quickpermissions.annotations.WithPermissions
 import com.livinglifetechway.quickpermissions.util.PermissionCheckerFragment
 import com.livinglifetechway.quickpermissions.util.PermissionUtil
 import com.livinglifetechway.quickpermissions.util.QuickPermissionsRequest
@@ -28,7 +28,7 @@ class PermissionsManager {
 
     companion object {
         private val TAG = PermissionsManager::class.java.simpleName
-        private const val POINTCUT_METHOD = "execution(@com.livinglifetechway.quickpermissions.annotations.RequiresPermissions * *(..))"
+        private const val POINTCUT_METHOD = "execution(@com.livinglifetechway.quickpermissions.annotations.WithPermissions * *(..))"
     }
 
     @Pointcut(POINTCUT_METHOD)
@@ -43,7 +43,7 @@ class PermissionsManager {
         // get the permissions defined in annotation
         val methodSignature = joinPoint.signature as MethodSignature
         val method = methodSignature.method
-        val annotation = method.getAnnotation(RequiresPermissions::class.java)
+        val annotation = method.getAnnotation(WithPermissions::class.java)
         val permissions = annotation.permissions
 
         Log.d(TAG, "permissions to check: " + permissions)
