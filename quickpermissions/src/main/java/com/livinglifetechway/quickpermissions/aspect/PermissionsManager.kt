@@ -155,7 +155,7 @@ class PermissionsManager {
             // context is null
             // cannot handle the permission checking from the any class other than AppCompatActivity/Fragment
             // crash the app RIGHT NOW!
-            throw IllegalStateException("No support from any classes other than AppCompatActivity/Fragment")
+            throw IllegalStateException("Found " + context!!::class.java.canonicalName + " : No support from any classes other than AppCompatActivity/Fragment")
         }
         return null
     }
