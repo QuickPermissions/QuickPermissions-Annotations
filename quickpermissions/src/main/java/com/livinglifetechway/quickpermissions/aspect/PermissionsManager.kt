@@ -48,15 +48,17 @@ class PermissionsManager {
 
         Log.d(TAG, "permissions to check: " + permissions)
 
-        // cast target to context
+        // get target
         val target = joinPoint.target
-        var context: Context? = null
-        if (target is Context) {
-            context = target
-        }
 
-        if (context != null && (context is AppCompatActivity || context is Fragment)) {
+        if (target != null && (target is AppCompatActivity || target is Fragment)) {
             Log.d(TAG, "weaveJoinPoint: context found")
+
+            val context = when (target) {
+                is Context -> target
+                is Fragment -> target.context
+                else -> null
+            }
 
             // check if we have the permissions
             if (PermissionUtil.hasSelfPermission(context, permissions)) {
@@ -155,7 +157,7 @@ class PermissionsManager {
             // context is null
             // cannot handle the permission checking from the any class other than AppCompatActivity/Fragment
             // crash the app RIGHT NOW!
-            throw IllegalStateException("Found " + context!!::class.java.canonicalName + " : No support from any classes other than AppCompatActivity/Fragment")
+            throw IllegalStateException("Found " + target!!::class.java.canonicalName + " : No support from any classes other than AppCompatActivity/Fragment")
         }
         return null
     }
