@@ -1,3 +1,3 @@
--keepclassmembers class ** {
-    @com.livinglifetechway.quickpermissions.annotations.* public *;
+-keepclassmembers class * {
+    @com.livinglifetechway.quickpermissions.annotations.* <methods>;
 }
